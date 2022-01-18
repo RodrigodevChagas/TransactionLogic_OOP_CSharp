@@ -65,7 +65,6 @@ namespace BancoConta
             catch (ArgumentException e)
             {
                 Console.WriteLine("Ocorreu um erro");
-                Console.WriteLine("Erro encontrado no: " );
                 Console.WriteLine(e.Message);
                 
             }
