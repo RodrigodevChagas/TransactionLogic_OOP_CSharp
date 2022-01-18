@@ -8,8 +8,9 @@ namespace BancoConta
 {
     public class Cliente
     {
+        public Cliente(string cpf) { CPF = cpf;}
         public string Nome { get; set; }
-        public string CPF { get; set; }
+        public string CPF { get; private set; }
         public string Profissao { get; set; }
 
     }

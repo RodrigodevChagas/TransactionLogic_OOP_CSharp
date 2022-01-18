@@ -5,31 +5,26 @@ namespace BancoConta
 {
     public class ContaCorrente
     {
-        public ContaCorrente (int agencia, int numeroDaConta)
+        public ContaCorrente(int agencia, int numeroDaConta)
         {
+            if (agencia <= 0) 
+            {
+                throw new ArgumentException("O numero da agencia precisa ser maior que zero", nameof(agencia));
+            }
+            if (numeroDaConta <= 0) 
+            {
+                throw new ArgumentException("O numero da conta precisa ser maior que zero", nameof(numero));
+            }
+            
             Agencia = agencia;
             NumeroConta = numeroDaConta;
             TotalDeContasCriadas++;
         }
         public static int TotalDeContasCriadas {get; private set;}
         public Cliente Titular {get; set;}
-        public int NumeroConta {get; set;}
-        private int _agencia; 
-        public int Agencia 
-        {
-            get
-            {
-                return _agencia;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    return;
-                }
-                _agencia = value;
-            }
-        }
+        public int NumeroConta { get; }
+        public int Agencia { get; }
+        
 
         private double _saldo;
         public double Saldo
@@ -47,7 +42,7 @@ namespace BancoConta
 
         public bool Sacar(double valor)
         {
-            if (valor > this._saldo)
+            if (valor > _saldo)
             {
                 return false;
             }

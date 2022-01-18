@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace BancoConta
 {
-    internal class Test
+    public class Test
     {
         static void Main(string[] args)
         {
             ContaCorrente contaDoSeth =  new ContaCorrente(303, 201529);
-            Cliente seth = new Cliente();
+            Cliente seth = new Cliente("043.959.791-90");
             seth.Nome = "Seth";
-            seth.CPF = "043.959.791-90";
             seth.Profissao = "Pro-Wrestler";
 
             contaDoSeth.Titular = seth;
             contaDoSeth.Saldo = 500.0;
 
-            Cliente roman = new Cliente();
+            Cliente roman = new Cliente("296.054.231-20");
             roman.Nome = "Roman";
-            roman.CPF = "296.054.231-20";
             roman.Profissao = "Pro-Wrestler";
 
             ContaCorrente contaDoRoman = new ContaCorrente(020, 201530);
@@ -58,10 +56,28 @@ namespace BancoConta
 
             Console.WriteLine();
             Console.WriteLine("O total de contas criadas no Banco foi de " + ContaCorrente.TotalDeContasCriadas + " contas");
-
+            Console.WriteLine();
+            
+            try
+            {
+                ContaCorrente conta = new ContaCorrente(1, 0);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine("Ocorreu um erro");
+                Console.WriteLine("Erro encontrado no: " );
+                Console.WriteLine(e.Message);
+                
+            }
+            catch (Exception ex) { 
+                Console.WriteLine("Excessao encontrada!");
+            }
+            
             Console.ReadLine();
+
 
          
         }
+        
     }
 }
