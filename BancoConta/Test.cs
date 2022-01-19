@@ -41,36 +41,24 @@ namespace BancoConta
             Console.WriteLine("Saldo: " + contaDoRoman.Saldo);
             Console.WriteLine("CPF: " + roman.CPF);
 
-            contaDoSeth.Sacar(100);
-            contaDoSeth.Depositar(100);
+           
+            int valorTransferencia = 10000000;
+            try {contaDoRoman.Transferir(valorTransferencia, contaDoSeth); }
+            catch (OperacaoFinanceiraException e) 
+            {
+                Console.WriteLine();
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
+                
+            }
             Console.WriteLine();
-            Console.WriteLine("Saldo do Seth é: " + contaDoSeth.Saldo);
-            Console.WriteLine("Saldo do Roman é: " + contaDoRoman.Saldo);
-
-            int valorTransferencia = 100;
-            contaDoRoman.Transferir(valorTransferencia, contaDoSeth);
-            Console.WriteLine();
-            Console.WriteLine("O valor da transferencia de Roman para Seth é: " + valorTransferencia);
             Console.WriteLine("Saldo do Seth é: " + contaDoSeth.Saldo);
             Console.WriteLine("Saldo do Roman é: " + contaDoRoman.Saldo);
 
             Console.WriteLine();
             Console.WriteLine("O total de contas criadas no Banco foi de " + ContaCorrente.TotalDeContasCriadas + " contas");
             Console.WriteLine();
-            
-            try
-            {
-                ContaCorrente conta = new ContaCorrente(1, 0);
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("Ocorreu um erro");
-                Console.WriteLine(e.Message);
-                
-            }
-            catch (Exception ex) { 
-                Console.WriteLine("Excessao encontrada!");
-            }
+           
             
             Console.ReadLine();
 

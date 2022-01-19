@@ -13,7 +13,7 @@ namespace BancoConta
             }
             if (numeroDaConta <= 0) 
             {
-                throw new ArgumentException("O numero da conta precisa ser maior que zero", nameof(numero));
+                throw new ArgumentException("O numero da conta precisa ser maior que zero", nameof(numeroDaConta));
             }
             
             Agencia = agencia;
@@ -40,31 +40,42 @@ namespace BancoConta
         }
         
 
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
+            if (0 > valor) 
+            {
+                throw new ArgumentException("Valor invalido para saque", nameof(valor));
+            }
             if (valor > _saldo)
             {
-                return false;
+                throw new SaldoInsuficienteException(Saldo, valor); 
             }
 
             _saldo -= valor;
-            return true;
 
         }
         public void Depositar(double valor)
         {
+            if (0 > valor) 
+            {
+                throw new ArgumentException("Valor invalido para depósito.", nameof(valor));
+            }
             _saldo += valor;
         }
 
-        public bool Transferir(double valor, ContaCorrente contaDestino)
+        public void Transferir(double valor, ContaCorrente contaDestino)
         {
-            if (valor > _saldo)
+
+            if (0 > valor)
             {
-                return false;
+                throw new ArgumentException("Valor insuficiente para transferência.", nameof(valor));
+            }
+            try { Sacar(valor); }
+            catch (SaldoInsuficienteException ex) 
+            {
+                throw new OperacaoFinanceiraException("Operacao nao realizada.", ex);
             }
             contaDestino.Depositar(valor);
-            _saldo -= valor;
-            return true;
         }
     }
 }
